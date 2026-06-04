@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Untuk Putri ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Fredoka,sans-serif;background:linear-gradient(#b8d8f5,#ffd1e6);overflow:hidden}
+.page{display:none;min-height:100vh;justify-content:center;align-items:center;flex-direction:column;padding:20px;text-align:center}
+.active{display:flex}
+h1,h2{font-family:"Great Vibes",cursive}
+.pin{font-size:32px;background:#fff;padding:15px 30px;border-radius:20px;min-width:220px;margin:15px}
+.keypad{display:grid;grid-template-columns:repeat(3,80px);gap:10px}
+.btn{height:80px;border:none;border-radius:50%;font-size:28px}
+.card,.letter{background:#fff;padding:25px;border-radius:20px;max-width:500px;box-shadow:0 8px 25px rgba(0,0,0,.15)}
+img{width:280px;border-radius:20px}
+.next,.yes,.no{margin-top:15px;padding:14px 24px;border:none;border-radius:16px;font-size:18px}
+.yes{background:#2ecc71;color:#fff}
+.no{background:#e74c3c;color:#fff;position:relative}
+.flower{font-size:50px;animation:grow 2s ease}
+@keyframes grow{from{transform:scale(0)}to{transform:scale(1)}}
+.heart{position:fixed;top:-20px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh)}}
+</style>
+</head>
+<body>
+
+<audio id="music" loop>
+<source src="loveme.mp3" type="audio/mpeg">
+</audio>
+
+<div class="page active" id="p1">
+<h1>Halo Putri ❤️</h1>
+<p>Masukkan kode pertama</p>
+<div class="pin" id="display"></div>
+<div class="keypad" id="keys"></div>
+</div>
+
+<div class="page" id="p2">
+<h1>Kode kedua ✨</h1>
+<p>Tanggal foto pertama kita 📸</p>
+<div class="pin" id="display2"></div>
+<div class="keypad" id="keys2"></div>
+</div>
+
+<div class="page" id="p3">
+<div class="card">
+<img src="auriza.png">
+<p style="margin-top:15px">The moment you came into my life and I chose you, my heart made its final decision.</p>
+<button class="next" onclick="showPage('p4')">Lanjut ❤️</button>
+</div>
+</div>
+
+<div class="page" id="p4">
+<div class="flower">🌷🌹🌷</div>
+<div class="letter">
+<h2>Dear Putri</h2><br>
+<p>Terima kasih sudah hadir dalam hidupku. Aku tidak tahu bagaimana masa depan akan berjalan, tetapi aku tahu satu hal: aku selalu ingin melihatmu bahagia.<br><br>
+Bersamamu terasa nyaman. Bersamamu terasa seperti rumah.<br><br>
+Dan jika suatu hari aku diberi pilihan lagi, aku akan tetap memilihmu. ❤️</p>
+</div>
+<button class="next" onclick="showPage('p5')">Lanjut ❤️</button>
+</div>
+
+<div class="page" id="p5">
+<div class="card">
+<h2>Maukah kamu menjadi bagian dari hidupku yang akan selalu aku perjuangkan?</h2>
+<button class="yes" onclick="mau()">Aku Mauuu ❤️</button>
+<button class="no" id="no">Gamau</button>
+</div>
+</div>
+
+<div class="page" id="p6">
+<div class="card">
+<h1>❤️ Terima Kasih ❤️</h1>
+<p>Aku akan tetap memilihmu, hari ini, besok, dan seterusnya.</p>
+</div>
+</div>
+
+<script>
+let pin="", pin2="";
+const d=document.getElementById('display');
+const d2=document.getElementById('display2');
+
+function makeKeys(el,cb){
+ for(let i=1;i<=9;i++){let b=document.createElement('button');b.className='btn';b.textContent=i;b.onclick=()=>cb(i);el.appendChild(b);}
+ let x=document.createElement('div');el.appendChild(x);
+ let b=document.createElement('button');b.className='btn';b.textContent='0';b.onclick=()=>cb(0);el.appendChild(b);
+ el.appendChild(document.createElement('div'));
+}
+
+makeKeys(document.getElementById('keys'),n=>{
+ pin+=n; d.textContent=pin;
+ if(pin==="010908"){document.getElementById('music').play();showPage('p2');}
+ else if(pin.length>=6){alert("Yahhh salah 🤭 Coba ingat lagi."); pin=""; d.textContent="";}
+});
+
+makeKeys(document.getElementById('keys2'),n=>{
+ pin2+=n; d2.textContent=pin2;
+ if(pin2==="030526"){showPage('p3');}
+ else if(pin2.length>=6){alert("Petunjuk: tanggal foto pertama kita 📸"); pin2=""; d2.textContent="";}
+});
+
+function showPage(id){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+}
+
+function mau(){
+ window.open("https://wa.me/6281378597057?text=Aku%20mauuu%20❤️","_blank");
+ showPage('p6');
+}
+
+const no=document.getElementById('no');
+function move(){
+ no.style.position='fixed';
+ no.style.left=Math.random()*(window.innerWidth-150)+'px';
+ no.style.top=Math.random()*(window.innerHeight-80)+'px';
+}
+no.addEventListener('mouseover',move);
+no.addEventListener('touchstart',move);
+
+setInterval(()=>{
+ let h=document.createElement('div');
+ h.className='heart';
+ h.textContent=Math.random()>.5?'❤️':'✨';
+ h.style.left=Math.random()*100+'vw';
+ h.style.animationDuration=(2+Math.random()*4)+'s';
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),6000);
+},250);
+</script>
+</body>
+</html>
